@@ -1,0 +1,19 @@
+spring:
+  profiles:
+    active: dev
+---
+spring:
+  profiles: dev
+  main:
+    banner-mode: "console"
+logging:
+  level:
+    web: 'DEBUG'
+    root: 'DEBUG'
+---
+spring:
+  profiles: prod
+  main:
+    banner-mode: "off"
+  devtools:
+    add-properties: false

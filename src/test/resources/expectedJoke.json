@@ -1,0 +1,10 @@
+{
+    "type": "success",
+    "value": {
+        "id": 100,
+        "joke": "joke",
+        "categories": [
+            "nerdy"
+        ]
+    }
+}

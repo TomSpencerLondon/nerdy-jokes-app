@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head::headerFragment(pageTitle='Home | Walking Skeleton CI/CD')}">
+    <title>Home Page</title>
+</head>
+<body>
+<div class="container">
+    <div class="row mt-4">
+        <div class="col">
+            <h1>It works!</h1>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col">
+            <p>Use <code>firstName</code> and <code>lastName</code> as query parameters:</p>
+            <p><a th:href="@{/api/v1(firstName='Foo',lastName='Bar')}">http://localhost:8080/api/v1?firstName=Foo&amp;lastName=Bar</a>
+            </p>
+        </div>
+    </div>
+</div>
+</body>
+</html>
