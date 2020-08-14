@@ -9,8 +9,9 @@ curl localhost:8080/api/v1                              # to receive a joke with
 curl localhost:8080/api/v1?firstName=Foo&lastName=Bar   # to receive a joke with custom name 'Foo Bar'
 ```
 
-To build a Docker image with [BuildKit](https://docs.docker.com/develop/develop-images/build_enhancements/)
+To build a Docker image with Dockerfile and [BuildKit](https://docs.docker.com/develop/develop-images/build_enhancements/)
 
 ```text
+./gradlew clean build bootJar
 DOCKER_BUILDKIT=1 docker image build -t ifqthenp/nerdy-jokes-app:latest .
 ```
