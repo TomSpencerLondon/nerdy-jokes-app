@@ -1,6 +1,6 @@
 package com.nerdyjokes.config;
 
-import com.nerdyjokes.rest.JokeHandler;
+import com.nerdyjokes.model.JokeHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.server.RouterFunction;

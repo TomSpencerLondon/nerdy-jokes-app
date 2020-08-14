@@ -1,6 +1,6 @@
 package com.nerdyjokes.service;
 
-import com.nerdyjokes.rest.Joke;
+import com.nerdyjokes.model.Joke;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;

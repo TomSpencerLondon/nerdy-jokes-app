@@ -1,6 +1,6 @@
 package com.nerdyjokes.service;
 
-import com.nerdyjokes.rest.Joke;
+import com.nerdyjokes.model.Joke;
 import reactor.core.publisher.Mono;
 
 public interface JokeService {

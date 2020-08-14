@@ -1,4 +1,4 @@
-package com.nerdyjokes.rest;
+package com.nerdyjokes.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

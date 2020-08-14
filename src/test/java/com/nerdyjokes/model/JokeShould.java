@@ -1,4 +1,4 @@
-package com.nerdyjokes.rest;
+package com.nerdyjokes.model;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;

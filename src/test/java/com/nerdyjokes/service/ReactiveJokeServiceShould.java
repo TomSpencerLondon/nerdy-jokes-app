@@ -1,6 +1,6 @@
 package com.nerdyjokes.service;
 
-import com.nerdyjokes.rest.Joke;
+import com.nerdyjokes.model.Joke;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
