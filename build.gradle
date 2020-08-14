@@ -10,6 +10,7 @@ defaultTasks 'clean', 'build'
 
 group = 'com.nerdyjokes'
 version = '0.0.1-SNAPSHOT'
+archivesBaseName = 'application'
 sourceCompatibility = JavaVersion.VERSION_11
 
 configurations {
@@ -35,6 +36,10 @@ dependencies {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
     testImplementation 'io.projectreactor:reactor-test'
+}
+
+bootJar {
+    layered()
 }
 
 test {
