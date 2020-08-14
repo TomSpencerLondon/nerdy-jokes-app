@@ -1,5 +1,6 @@
-package com.nerdyjokes.model;
+package com.nerdyjokes.controller;
 
+import com.nerdyjokes.model.Joke;
 import com.nerdyjokes.service.JokeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
