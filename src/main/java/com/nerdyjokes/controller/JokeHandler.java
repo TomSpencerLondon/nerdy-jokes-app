@@ -1,6 +1,6 @@
 package com.nerdyjokes.controller;
 
-import com.nerdyjokes.model.Joke;
+import com.nerdyjokes.model.JokeResponse;
 import com.nerdyjokes.service.JokeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -27,10 +27,10 @@ public class JokeHandler {
         final String firstName = getNameFrom(request, FIRST_NAME, DEFAULT_FIRST_NAME);
         final String lastName = getNameFrom(request, LAST_NAME, DEFAULT_LAST_NAME);
         final Mono<ServerResponse> notFound = ServerResponse.notFound().build();
-        final Mono<Joke> joke = jokeService.requestRandomNerdyJoke(firstName, lastName);
+        final Mono<JokeResponse> joke = jokeService.requestRandomNerdyJoke(firstName, lastName);
         return ServerResponse.ok()
             .contentType(MediaType.APPLICATION_JSON)
-            .body(joke, Joke.class)
+            .body(joke, JokeResponse.class)
             .switchIfEmpty(notFound);
     }
 

@@ -1,6 +1,6 @@
 package com.nerdyjokes.service;
 
-import com.nerdyjokes.model.Joke;
+import com.nerdyjokes.model.JokeResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -40,7 +40,7 @@ class ReactiveJokeServiceShould {
 
     @Test
     void return_nerdy_joke_when_requested_from_external_jokes_resource() {
-        final Joke mockJoke = new Joke("success", new Joke.Value(1, "joke", List.of("nerdy")));
+        final JokeResponse mockJokeResponse = new JokeResponse("success", new JokeResponse.Value(1, "joke", List.of("nerdy")));
 
         final String firstName = "John";
         final String lastName = "Doe";
@@ -49,12 +49,12 @@ class ReactiveJokeServiceShould {
         when(webClientMock.get()).thenReturn(requestHeadersUriMock);
         when(requestHeadersUriMock.uri(mockQueryString)).thenReturn(requestHeadersMock);
         when(requestHeadersMock.exchange()).thenReturn(Mono.just(clientResponse));
-        when(clientResponse.bodyToMono(Joke.class)).thenReturn(Mono.just(mockJoke));
+        when(clientResponse.bodyToMono(JokeResponse.class)).thenReturn(Mono.just(mockJokeResponse));
 
-        Mono<Joke> jokeMono = jokeService.requestRandomNerdyJoke(firstName, lastName);
+        Mono<JokeResponse> jokeMono = jokeService.requestRandomNerdyJoke(firstName, lastName);
 
         StepVerifier.create(jokeMono)
-            .expectNextMatches(joke -> joke.equals(mockJoke))
+            .expectNextMatches(joke -> joke.equals(mockJokeResponse))
             .verifyComplete();
     }
 }
