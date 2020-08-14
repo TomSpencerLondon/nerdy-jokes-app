@@ -1,6 +1,17 @@
 spring:
   profiles:
     active: dev
+management:
+  endpoint:
+    health:
+      show-details: "always"
+      group:
+        local:
+          include: "diskSpace,ping"
+  endpoints:
+    web:
+      exposure:
+        include: "*"
 ---
 spring:
   profiles: dev
@@ -8,8 +19,8 @@ spring:
     banner-mode: "console"
 logging:
   level:
-    web: 'DEBUG'
-    root: 'DEBUG'
+    web: 'INFO'
+    root: 'INFO'
 ---
 spring:
   profiles: prod
