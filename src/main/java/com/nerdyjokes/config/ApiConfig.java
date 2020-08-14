@@ -8,8 +8,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.reactive.ReactorClientHttpConnector;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import static com.nerdyjokes.logging.LogFilters.logRequest;
-import static com.nerdyjokes.logging.LogFilters.logResponse;
+import static com.nerdyjokes.config.WebClientLogFilters.logRequest;
+import static com.nerdyjokes.config.WebClientLogFilters.logResponse;
 
 @Configuration
 public class ApiConfig {
