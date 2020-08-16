@@ -1,0 +1,49 @@
+global:
+  scrape_interval: 5s
+  external_labels:
+    monitor: nerdy-jokes-app-monitor
+
+scrape_configs:
+  - job_name: prometheus
+    static_configs:
+      - targets:
+          - localhost:9090
+
+  - job_name: nerdy-jokes-app
+    metrics_path: /actuator/prometheus
+    static_configs:
+      - targets:
+          - nerdy-jokes-app:8080
+
+  - job_name: cadvisor
+    static_configs:
+      - targets:
+          - cadvisor:8080
+
+  - job_name: grafana
+    static_configs:
+      - targets:
+          - grafana:3000
+
+  - job_name: blackbox                                # To get metrics about the exporter itself
+    static_configs:
+      - targets:
+          - blackbox-exporter:9115
+
+  - job_name: blackbox-http                           # To get metrics about the exporter’s targets
+    metrics_path: /probe
+    params:
+      module: ['http_2xx']
+    static_configs:
+      - targets:
+          - http://nerdy-jokes-app:8080/actuator/health
+          - http://grafana:3000/api/health
+          - http://prometheus:9090/-/healthy
+          - http://cadvisor:8080/healthz
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: blackbox-exporter:9115           # The blackbox exporter’s real hostname:port.
