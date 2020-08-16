@@ -9,9 +9,10 @@ curl localhost:8080/api/v1                              # to receive a joke with
 curl localhost:8080/api/v1?firstName=Foo&lastName=Bar   # to receive a joke with custom name 'Foo Bar'
 ```
 
-To build a Docker image with Dockerfile and [BuildKit](https://docs.docker.com/develop/develop-images/build_enhancements/)
+For building jars, images and running the app, use `Makefile`:
 
-```text
-./gradlew clean build bootJar
-DOCKER_BUILDKIT=1 docker image build -t ifqthenp/nerdy-jokes-app:latest .
+```
+make all            # to build everything and push images to the DockerHub (need to be logged-in into docker for push)
+make docker_run     # to run all using Docker Compose file from ./docker folder
+make docker_clean   # to remove all docker containers, volumes, networks, images
 ```
