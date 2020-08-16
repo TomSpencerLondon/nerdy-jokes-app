@@ -1,0 +1,70 @@
+version: "3.8"
+
+networks:
+  back_net:
+    name: back_net
+
+volumes:
+  prometheus_data: {}
+  grafana_data: {}
+
+services:
+  nerdy-jokes-app:
+    image: ifqthenp/nerdy-jokes-app:latest
+    container_name: nerdy-jokes-app
+    ports:
+      - '8080:8080'
+    networks:
+      - back_net
+
+  prometheus:
+    image: ifqthenp/nerdy-jokes-prometheus:latest
+    container_name: nerdy-jokes-prometheus
+    volumes:
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--storage.tsdb.retention.time=200h'
+    ports:
+      - '9090:9090'
+    networks:
+      - back_net
+
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:v0.36.0
+    container_name: nerdy-jokes-cadvisor
+    privileged: true
+    volumes:
+      - '/:/rootfs:ro'
+      - '/var/run:/var/run:ro'
+      - '/sys:/sys:ro'
+      - '/var/lib/docker/:/var/lib/docker:ro'
+      - '/dev/disk/:/dev/disk:ro'
+      - '/dev/mapper/system-root:/dev/mapper/system-root:ro'
+    ports:
+      - '8484:8080'
+    networks:
+      - back_net
+
+  blackbox-exporter:
+    image: ifqthenp/nerdy-jokes-blackbox-exporter:latest
+    container_name: nerdy-jokes-blackbox
+    networks:
+      - back_net
+
+  grafana:
+    image: grafana/grafana:7.1.3
+    container_name: nerdy-jokes-grafana
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=secret
+      - GF_INSTALL_PLUGINS=grafana-clock-panel,grafana-simple-json-datasource
+    volumes:
+      - grafana_data:/var/lib/grafana
+    depends_on:
+      - prometheus
+    ports:
+      - '3000:3000'
+    networks:
+      - back_net
