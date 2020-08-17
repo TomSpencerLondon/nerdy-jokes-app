@@ -1,11 +1,11 @@
-package com.nerdyjokes.logging;
+package com.nerdyjokes.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.reactive.function.client.ExchangeFilterFunction;
 import reactor.core.publisher.Mono;
 
 @Slf4j
-public class LogFilters {
+public class WebClientLogFilters {
 
     public static ExchangeFilterFunction logRequest() {
         return ExchangeFilterFunction.ofRequestProcessor(clientRequest -> {

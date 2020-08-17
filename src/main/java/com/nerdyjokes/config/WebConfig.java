@@ -1,26 +1,24 @@
 package com.nerdyjokes.config;
 
+import com.nerdyjokes.controller.JokeHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.client.reactive.ReactorClientHttpConnector;
-import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.reactive.function.server.RouterFunction;
+import org.springframework.web.reactive.function.server.ServerResponse;
 
-import static com.nerdyjokes.logging.LogFilters.logRequest;
-import static com.nerdyjokes.logging.LogFilters.logResponse;
+import static org.springframework.http.MediaType.APPLICATION_JSON;
+import static org.springframework.web.reactive.function.server.RequestPredicates.GET;
+import static org.springframework.web.reactive.function.server.RequestPredicates.accept;
+import static org.springframework.web.reactive.function.server.RouterFunctions.route;
 
 @Configuration
 public class WebConfig {
 
-    private static final String JOKES_API_URL = "https://api.icndb.com/jokes";
+    private static final String API_PATH = "/api/v1";
 
     @Bean
-    public WebClient webClient() {
-        return WebClient.builder()
-            .baseUrl(JOKES_API_URL)
-            .clientConnector(new ReactorClientHttpConnector())
-            .filters(exchangeFilterFunctions -> {
-                exchangeFilterFunctions.add(logRequest());
-                exchangeFilterFunctions.add(logResponse());
-            }).build();
+    public RouterFunction<ServerResponse> jokeRouterFunction(final JokeHandler jokeHandler) {
+        return route(GET(API_PATH)
+            .and(accept(APPLICATION_JSON)), jokeHandler::getJoke);
     }
 }

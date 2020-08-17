@@ -1,4 +1,4 @@
-package com.nerdyjokes.rest;
+package com.nerdyjokes.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,7 +11,7 @@ import static lombok.AccessLevel.PRIVATE;
 @Data
 @RequiredArgsConstructor
 @NoArgsConstructor(access = PRIVATE, force = true)
-public class Joke {
+public class JokeResponse {
 
     private final String type;
     private final Value value;
