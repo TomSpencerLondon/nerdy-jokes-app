@@ -1,4 +1,4 @@
-package com.nerdyjokes.controller;
+package com.nerdyjokes.route;
 
 import com.nerdyjokes.model.JokeResponse;
 import com.nerdyjokes.service.JokeService;
