@@ -1,5 +1,9 @@
-USERNAME	:= ifqthenp
-TAG			:= $$(git rev-parse HEAD)
+USERNAME			:= ifqthenp
+COMMIT				:= $(shell git rev-parse HEAD)
+
+DESCRIBE			:= $(shell git describe --match "v*" --always --tags)
+DESCRIBE_PARTS		:= $(subst -, ,$(DESCRIBE))
+VERSION_TAG			:= $(word 1,$(DESCRIBE_PARTS))
 
 .PHONY: all
 all: build push
@@ -23,7 +27,8 @@ blackbox: build_docker_blackbox_exporter push_blackbox
 
 APP_DOCKERFILE	:= docker/nerdy-jokes-app/Dockerfile
 APP_IMAGE_NAME	:= ${USERNAME}/nerdy-jokes-app
-APP_IMG			:= ${APP_IMAGE_NAME}:${TAG}
+APP_IMG			:= ${APP_IMAGE_NAME}:${COMMIT}
+APP_TAG			:= ${APP_IMAGE_NAME}:${VERSION_TAG}
 APP_LATEST		:= ${APP_IMAGE_NAME}:latest
 
 build_jar:
@@ -32,6 +37,7 @@ build_jar:
 build_docker_app:
 	@DOCKER_BUILDKIT=1 docker image build -f ${APP_DOCKERFILE} -t ${APP_IMG} .
 	@docker tag ${APP_IMG} ${APP_LATEST}
+	@docker tag ${APP_IMG} ${APP_TAG}
 
 push_app:
 	@docker push ${APP_IMAGE_NAME}
