@@ -1,6 +1,5 @@
-package com.nerdyjokes.config;
+package com.nerdyjokes.route;
 
-import com.nerdyjokes.controller.JokeHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.server.RouterFunction;
@@ -12,7 +11,7 @@ import static org.springframework.web.reactive.function.server.RequestPredicates
 import static org.springframework.web.reactive.function.server.RouterFunctions.route;
 
 @Configuration
-public class WebConfig {
+public class JokeRouter {
 
     private static final String API_PATH = "/api/v1";
 
