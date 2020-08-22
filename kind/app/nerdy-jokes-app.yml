@@ -1,0 +1,70 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: dev
+  name: nerdy-jokes-app
+  labels:
+    app: nerdy-jokes-app
+spec:
+  ports:
+    - name: app
+      port: 80
+      targetPort: 8080
+  selector:
+    app: nerdy-jokes-app
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: dev
+  name: nerdy-jokes-app
+  labels:
+    app: nerdy-jokes-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nerdy-jokes-app
+  template:
+    metadata:
+      labels:
+        app: nerdy-jokes-app
+    spec:
+      containers:
+        - name: nerdy-jokes-app
+          image: ifqthenp/nerdy-jokes-app:v1.0.3
+          ports:
+            - containerPort: 8080
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8080
+            initialDelaySeconds: 7
+            periodSeconds: 5
+            timeoutSeconds: 3
+#          readinessProbe:
+#            initialDelaySeconds: 15
+#            periodSeconds: 10
+#            timeoutSeconds: 5
+#            exec:
+#              command:
+#                - sh
+#                - -c
+#                - >-
+#                  curl --silent http://localhost:8080/api/v1 |
+#                  grep --quiet -e '^{"type":"success"'
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: nerdy-jokes-app-ingress
+  namespace: dev
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /api/v1
+            backend:
+              serviceName: nerdy-jokes-app
+              servicePort: 80

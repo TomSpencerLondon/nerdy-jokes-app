@@ -1,0 +1,14 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: nerdy-jokes-app
+  namespace: dev
+  labels:
+    app: nerdy-jokes-app
+spec:
+  selector:
+    matchLabels:
+      app: nerdy-jokes-app
+  endpoints:
+    - port: app
+      path: /actuator/prometheus
