@@ -9,6 +9,7 @@ metadata:
   labels:
     app.kubernetes.io/name: ingress-nginx
     app.kubernetes.io/instance: ingress-nginx
+    monitoring: prometheus
 
 ---
 # Source: ingress-nginx/templates/controller-serviceaccount.yaml
@@ -327,6 +328,9 @@ spec:
   minReadySeconds: 0
   template:
     metadata:
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9113"
       labels:
         app.kubernetes.io/name: ingress-nginx
         app.kubernetes.io/instance: ingress-nginx
@@ -389,6 +393,8 @@ spec:
             successThreshold: 1
             failureThreshold: 3
           ports:
+            - name: prometheus
+              containerPort: 9113
             - name: http
               containerPort: 80
               protocol: TCP

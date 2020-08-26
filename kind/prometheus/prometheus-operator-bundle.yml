@@ -5,6 +5,7 @@ metadata:
     controller-gen.kubebuilder.io/version: v0.2.4
   creationTimestamp: null
   name: alertmanagers.monitoring.coreos.com
+  namespace: monitoring
 spec:
   group: monitoring.coreos.com
   names:
@@ -16873,7 +16874,7 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: prometheus-operator
-  namespace: dev
+  namespace: monitoring
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -16954,7 +16955,7 @@ metadata:
     app.kubernetes.io/name: prometheus-operator
     app.kubernetes.io/version: v0.41.1
   name: prometheus-operator
-  namespace: dev
+  namespace: monitoring
 spec:
   replicas: 1
   selector:
@@ -17003,7 +17004,7 @@ metadata:
     app.kubernetes.io/name: prometheus-operator
     app.kubernetes.io/version: v0.41.1
   name: prometheus-operator
-  namespace: dev
+  namespace: monitoring
 ---
 apiVersion: v1
 kind: Service
@@ -17013,7 +17014,7 @@ metadata:
     app.kubernetes.io/name: prometheus-operator
     app.kubernetes.io/version: v0.41.1
   name: prometheus-operator
-  namespace: dev
+  namespace: monitoring
 spec:
   clusterIP: None
   ports:

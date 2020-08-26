@@ -2,7 +2,7 @@ apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
   name: prometheus
-  namespace: dev
+  namespace: monitoring
   labels:
     app: nerdy-jokes-app
 spec:

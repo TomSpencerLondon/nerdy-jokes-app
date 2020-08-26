@@ -8,7 +8,9 @@ kubectl wait --namespace ingress-nginx \
     --selector=app.kubernetes.io/component=controller \
     --timeout=90s
 
-kubectl create namespace dev
+kubectl apply -f ./ingress/nginx-servicemonitor.yml
+
+kubectl apply -f ./namespace/ns.yml
 
 kubectl apply -f ./prometheus/prometheus-operator-bundle.yml
 kubectl apply -f ./prometheus/prometheus-instance.yml
