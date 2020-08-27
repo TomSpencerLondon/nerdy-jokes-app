@@ -2,13 +2,13 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: prometheus
-  namespace: dev
+  namespace: monitoring
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: prometheus
-  namespace: dev
+  namespace: monitoring
 rules:
   - apiGroups: [""]
     resources:
@@ -28,7 +28,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   name: prometheus
-  namespace: dev
+  namespace: monitoring
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -36,19 +36,22 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: prometheus
-    namespace: dev
+    namespace: monitoring
 ---
 apiVersion: monitoring.coreos.com/v1
 kind: Prometheus
 metadata:
   name: prometheus
-  namespace: dev
+  namespace: monitoring
   labels:
     prometheus: prometheus-nerdy-jokes-app
 spec:
   replicas: 1
   externalUrl: http://localhost/prometheus
   serviceAccountName: prometheus
+  serviceMonitorNamespaceSelector:
+    matchLabels:
+      monitoring: prometheus
   serviceMonitorSelector:
     matchLabels:
       app: nerdy-jokes-app
