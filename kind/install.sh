@@ -16,5 +16,6 @@ kubectl apply -f ./prometheus/prometheus-ingress.yml
 
 kubectl apply -f ./ingress-nginx/servicemonitor.yml
 
-kubectl apply -f ./app/nerdy-jokes-app.yml
-kubectl apply -f ./app/nerdy-jokes-app-servicemonitor.yml
+kubectl apply -f ./nerdy-jokes-app/deployment.yml
+kubectl apply -f ./nerdy-jokes-app/servicemonitor.yml
+kubectl apply -f ./nerdy-jokes-app/ingress.yml
