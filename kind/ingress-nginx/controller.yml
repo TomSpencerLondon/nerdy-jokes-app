@@ -389,6 +389,9 @@ spec:
             successThreshold: 1
             failureThreshold: 3
           ports:
+            - name: metrics
+              containerPort: 10254
+              protocol: TCP
             - name: http
               containerPort: 80
               protocol: TCP
