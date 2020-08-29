@@ -17,7 +17,7 @@ spec:
   ports:
     - name: app
       port: 80
-      targetPort: 8080
+      targetPort: app
   selector:
     app: nerdy-jokes-app
   type: ClusterIP
@@ -43,7 +43,9 @@ spec:
         - name: nerdy-jokes-app
           image: ifqthenp/nerdy-jokes-app:v1.0.3
           ports:
-            - containerPort: 8080
+            - name: app
+              containerPort: 8080
+              protocol: TCP
           livenessProbe:
             httpGet:
               path: /actuator/health/liveness
