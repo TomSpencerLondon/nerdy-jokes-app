@@ -25,7 +25,7 @@ blackbox: build_docker_blackbox_exporter push_blackbox
 
 # >>> NERDY JOKES APP >>> ##############################################################################################
 
-APP_DOCKERFILE	:= docker/nerdy-jokes-app/Dockerfile
+APP_DOCKERFILE	:= src/main/docker/Dockerfile
 APP_IMAGE_NAME	:= ${USERNAME}/nerdy-jokes-app
 APP_IMG			:= ${APP_IMAGE_NAME}:${COMMIT}
 APP_TAG			:= ${APP_IMAGE_NAME}:${VERSION_TAG}
@@ -44,9 +44,9 @@ push_app:
 
 # >>> PROMETHEUS >>> ###################################################################################################
 
-PROM_DOCKERFILE	:= docker/prometheus/Dockerfile
+PROM_DOCKERFILE	:= docker-compose/prometheus/Dockerfile
 PROM_IMAGE_NAME	:= ${USERNAME}/nerdy-jokes-prometheus
-PROM_IMG		:= ${PROM_IMAGE_NAME}:${TAG}
+PROM_IMG		:= ${PROM_IMAGE_NAME}:${VERSION_TAG}
 PROM_LATEST		:= ${PROM_IMAGE_NAME}:latest
 
 build_docker_prometheus:
@@ -58,9 +58,9 @@ push_prometheus:
 
 # >>> BLACKBOX EXPORTER >>> ############################################################################################
 
-BLACK_DOCKERFILE	:= docker/blackbox_exporter/Dockerfile
+BLACK_DOCKERFILE	:= docker-compose/blackbox_exporter/Dockerfile
 BLACK_IMAGE_NAME	:= ${USERNAME}/nerdy-jokes-blackbox-exporter
-BLACK_IMG			:= ${BLACK_IMAGE_NAME}:${TAG}
+BLACK_IMG			:= ${BLACK_IMAGE_NAME}:${VERSION_TAG}
 BLACK_LATEST		:= ${BLACK_IMAGE_NAME}:latest
 
 build_docker_blackbox_exporter:
@@ -73,7 +73,7 @@ push_blackbox:
 # >>> DOCKER COMPOSE >>> ###############################################################################################
 
 docker_run:
-	@LD_LIBRARY_PATH=/usr/local/lib docker-compose -f docker/docker-compose.yml up
+	@LD_LIBRARY_PATH=/usr/local/lib docker-compose -f docker-compose/docker-compose.yml up
 
 docker_clean:
 	-docker container rm $$(docker container ls -qa)
